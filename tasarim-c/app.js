@@ -192,11 +192,11 @@
   const yp = $("#yeniProje"), yeni = typeof YENI_PROJE !== "undefined" && projeBul(YENI_PROJE.id);
   if (yp && yeni) {
     $("#ypImg").innerHTML = `<img src="${img(YENI_PROJE.gorsel || yeni.kapak)}" alt="${esc(yeni.ad)}">`;
-    $("#ypAd").textContent = yeni.ad;
-    $("#ypKonum").textContent = yeni.konum;
-    $("#ypOzet").textContent = yeni.ozet;
-    $("#ypLink").href = "proje.html?p=" + yeni.id;
-    $("#ypTip").innerHTML = `<option value="">Fark etmez</option>` + (YENI_PROJE.tipler || []).map(t => `<option>${esc(t)}</option>`).join("");
+    // Liste: öne çıkan başta, "sona" yazılanlar sonda, diğerleri sitedeki sırayla.
+    const sona = YENI_PROJE.sona || [];
+    const liste = [yeni, ...PROJELER.filter(p => p !== yeni && !sona.includes(p.id)), ...sona.map(projeBul).filter(Boolean)];
+    $("#ypProje").innerHTML = `<option value="">Henüz karar vermedim</option>`
+      + liste.map(p => `<option value="${p.id}"${p === yeni ? " selected" : ""}>${esc(p.ad)}</option>`).join("");
     const ANAHTAR = "yeniProjeGoruldu";
     let goruldu = false;
     try { goruldu = sessionStorage.getItem(ANAHTAR) === "1"; } catch (e) {}

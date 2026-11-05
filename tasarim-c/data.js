@@ -25,8 +25,8 @@ const DANISMANLAR = [
 
 const RAKAMLAR = [
   { v: "2008", l: "Kuruluş" },
-  { v: "11", l: "Proje" },
-  { v: "1.355", l: "Konut · Grande Yaşamkent" } // sitede yazan rakam (Projeler sayfası)
+  { v: "13", l: "Proje" },
+  { v: "Ticari + Konut", l: "Grande Projeler" } // 5 Kasım 2026 müşteri isteği: "1.355 konut" yerine
 ];
 
 const KATEGORILER = [
@@ -108,6 +108,20 @@ const PROJELER = [
     videolar: ["goksu-1"]
   },
   {
+    id: "empire", ad: "Empire Şaşmaz", konum: "Şaşmaz, Yenimahalle / Ankara", sehir: "Ankara",
+    kat: "konut", katAd: "Konut & Ticari", one: "206 konut · 114 mağaza",
+    kapak: "empire-kapak", galeri: g("empire", 10), // kapak: g04 dikey kırpım, 3:4 kart için
+    ozet: "İstanbul Yolu'na 200 metre, Şaşmaz Kavşağı'na yakın; konut ve ticari alanları bir araya getiren iki bloklu proje.",
+    aciklama: [
+      "Empire Şaşmaz, Yenimahalle Ergazi'de 42988 ada 1 parsel üzerinde iki bloktan oluşuyor: 166 adet 1+1 ve 40 adet 2+1 olmak üzere 206 konut, 114 mağaza ve 2 satış ofisi.",
+      "A Blok 2 bodrum + zemin + 6, B Blok 2 bodrum + zemin + 4 kat. Toplam emsal alanı 17.280 m². Mimari tasarım Doğan Gökhan Yalçın'a ait.",
+      "Proje Ottoman ve Otoplus projelerinin hemen yanında; Batıkent ve Şaşmaz bölgelerine ve Ankara'nın ana ulaşım akslarına kolay ulaşım sağlıyor."
+    ],
+    kunye: [["Parsel","42988 ada 1 parsel"],["Blok","A: 2B+Z+6 · B: 2B+Z+4"],["Konut","166 × 1+1 · 40 × 2+1"],["Mağaza","114"],["Emsal alanı","17.280 m²"],["İstanbul Yolu","200 m"]],
+    planlar: [["empire-1-1","1+1","Salon + mutfak 21,20 m² · Yatak odası 10,09 m²"],["empire-2-1","2+1","Salon + mutfak 21,03 m² · Yatak odası 13,03 m² · Çocuk odası 10,16 m²"]],
+    videolar: ["empire-1"]
+  },
+  {
     id: "vipport", ad: "VIP Port", konum: "Akyurt, Ankara", sehir: "Ankara",
     kat: "konut", katAd: "Konut", one: "270 daire · Havalimanına 2 dk",
     kapak: "vipport-kapak", galeri: g("vipport", 13), // kapak: g01'in sol kulesi, 3:4 kart için
@@ -140,6 +154,18 @@ const PROJELER = [
       "Denize 3 km mesafede; havuz ve sosyal tesis alanları var. Kira getirisi ve uzun vadeli değer artışı için planlandı."
     ],
     kunye: [["Tip","2+1 · 100 m²"],["Tapu","Hemen teslim"],["Deniz","3 km"],["Donatı","Havuz · sosyal tesis"]]
+  },
+  {
+    id: "sardunya", ad: "Sardunya Kıbrıs", konum: "Lapta, Kuzey Kıbrıs", sehir: "KKTC",
+    kat: "yurtdisi", katAd: "Yurt dışı", one: "Havuzlu villalar",
+    kapak: "sardunya-g01", galeri: g("sardunya", 9),
+    ozet: "Lapta'da, 3.297 m² arsa üzerinde deniz manzaralı, özel havuzlu villalar.",
+    aciklama: [
+      "Sardunya Kıbrıs, Kuzey Kıbrıs'ın Lapta bölgesinde 3.297 m²'lik bir arsa üzerinde planlanıyor. Villalar özel havuzlu ve çatı terasları deniz manzarasına açılıyor."
+    ],
+    kunye: [["Arsa","3.297 m²"],["Konum","Lapta, Kuzey Kıbrıs"],["Tip","Özel havuzlu villa"]],
+    planlar: [],
+    videolar: ["sardunya-1","sardunya-2"]
   },
   {
     id: "yk-doga", ad: "Yaşamköy Dostlar Doğa", konum: "Temelli / Alagöz, Ankara", sehir: "Ankara",
@@ -176,10 +202,10 @@ const PROJELER = [
   }
 ];
 
-/* Siteye girenin aşağı kaydırınca gördüğü form penceresi bu projeyi tanıtır.
-   Seçim: Drive'daki projeler içinde inşaatı süren tek proje (teslim 20–24 ay) Grande Göksu.
-   Müşteri başka bir projeyi isterse yalnız buradaki kimliği değiştirin. */
-const YENI_PROJE = { id: "goksu", gorsel: "goksu-g05", tipler: ["1+1"] };
+/* Siteye girenin aşağı kaydırınca gördüğü bilgi penceresi: "Projelerimiz hakkında bilgi almak
+   ister misiniz?" + proje seçimi. id: görseli görünen, listede başta ve seçili gelen proje.
+   sona: listede en sona alınanlar (Göksu'da daire kalmadı — müşteri isteği, 5 Kasım 2026). */
+const YENI_PROJE = { id: "lokasyon", sona: ["goksu"] };
 
 const VIDEOLAR = [
   { id: "yasamkent-1", ad: "Grande Yaşamkent", alt: "Proje tanıtımı" },
@@ -188,7 +214,10 @@ const VIDEOLAR = [
   { id: "lokasyon-1", ad: "Grande Lokasyon", alt: "Konum" },
   { id: "protokol-1", ad: "Grande Protokol", alt: "Şantiye" },
   { id: "protokol-2", ad: "Grande Protokol", alt: "Konum" },
-  { id: "goksu-1", ad: "Grande Göksu", alt: "Konum" }
+  { id: "goksu-1", ad: "Grande Göksu", alt: "Konum" },
+  { id: "empire-1", ad: "Empire Şaşmaz", alt: "Proje tanıtımı" },
+  { id: "sardunya-1", ad: "Sardunya Kıbrıs", alt: "Arsa" },
+  { id: "sardunya-2", ad: "Sardunya Kıbrıs", alt: "Arsa" }
 ];
 
 const GRUP = [
