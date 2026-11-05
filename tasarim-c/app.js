@@ -19,7 +19,7 @@
 
   /* Satış danışmanları */
   const advisers = $("#advisers");
-  if (advisers) advisers.innerHTML = DANISMANLAR.map(d => `<div class="adv"><span class="small">Satış danışmanı</span><h3 class="h3">${esc(d.ad)}</h3><a class="adv-tel" href="${d.href}">${esc(d.tel)}</a><a class="btn" href="${d.href}">Ara</a></div>`).join("");
+  if (advisers) advisers.innerHTML = DANISMANLAR.map(d => `<div class="adv"><span class="small">Satış danışmanı</span><h2 class="h3">${esc(d.ad)}</h2><a class="adv-tel" href="${d.href}">${esc(d.tel)}</a><a class="btn" href="${d.href}">Ara</a></div>`).join("");
 
   /* Proje kartı: dikey görsel, adı üstte (Joven gibi); bilgiler proje sayfasında */
   function kart(p) {
@@ -183,7 +183,7 @@
     } else pvid.remove();
     // Plan ve video yoksa alt bölüm tek sütun: bilgiler ve form yan yana.
     if (!(p.planlar && p.planlar.length) && !(p.videolar && p.videolar.length)) $("#pBody").classList.add("p-body--tek");
-    const others = PROJELER.filter(x => x.id !== p.id).slice(0, 4);
+    const sira = PROJELER.indexOf(p), others = PROJELER.slice(sira + 1).concat(PROJELER.slice(0, sira)).slice(0, 4);
     $("#others").innerHTML = others.map(kart).join("");
   }
 

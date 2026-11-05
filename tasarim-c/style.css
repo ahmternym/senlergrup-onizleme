@@ -7,9 +7,9 @@
   --surface: #f4f3ef;
   --ink: #141414;
   --ink-2: #4d4d50;
-  --ink-3: #8b8b90;
+  --ink-3: #6b6b70;
   --line: #e6e4df;
-  --accent: #a8822f;        /* logo altını; yalnızca etiket */
+  --accent: #86661f;        /* logo altını; yalnızca etiket */
   --max: 1320px;
   --gutter: clamp(16px, 4vw, 56px);
   --r: 18px;                /* kart */
@@ -283,8 +283,9 @@ ul { list-style: none; }
 .p-sub .vlist { grid-template-columns: 1fr; }
 .plans { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
 .plan { display: grid; background: var(--surface); border-radius: var(--r); padding: 8px; }
-.plan-img { aspect-ratio: 1; background: #fff; border-radius: var(--r-sm); overflow: hidden; display: grid; place-items: center; padding: 12px; }
-.plan-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.plan-img { aspect-ratio: 1; background: #fff; border-radius: var(--r-sm); overflow: hidden; padding: 12px; position: relative; }
+/* Dikey planlar kutudan taşıp alttan kesiliyordu: görsel kutunun iç alanına sabitlenir, oranı korunur. */
+.plan-img img { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); object-fit: contain; }
 .plan-cap { padding: 12px 8px 6px; display: grid; gap: 2px; }
 .plan-cap b { font-size: 17px; font-weight: 600; }
 .plan-cap span { font-size: 14px; color: var(--ink-3); }
