@@ -383,3 +383,15 @@ ul { list-style: none; }
   .banner { grid-template-columns: 1fr; min-height: 0; }
   .banner-img { position: relative; inset: auto; clip-path: none; aspect-ratio: 16 / 9; order: -1; }
 }
+
+/* Videolar proje proje gruplu (ana sayfa) */
+.vgruplar { columns: 2; column-gap: 12px; }
+.vgrup { break-inside: avoid; display: grid; gap: 10px; padding: 18px 18px 8px; margin-bottom: 12px; border: 1px solid var(--line); border-radius: var(--r); }
+.vgrup-head { display: flex; align-items: baseline; gap: 12px; padding: 0 2px 4px; }
+.vgrup-head h3 { font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
+.vgrup-head span { font-size: 14px; color: var(--ink-3); }
+.vgrup-head a { margin-left: auto; font-size: 14px; font-weight: 500; color: var(--ink); white-space: nowrap; }
+.vgrup-head a:hover { text-decoration: underline; }
+.vgrup .vlist { grid-template-columns: 1fr; gap: 8px; padding-bottom: 10px; }
+@media (max-width: 900px) { .vgruplar { columns: 1; } }
+@media (max-width: 760px) { .vgrup { padding: 14px 10px 4px; } .vgrup-head h3 { font-size: 18px; } }

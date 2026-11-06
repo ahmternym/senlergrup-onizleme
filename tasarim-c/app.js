@@ -45,9 +45,20 @@
 
   /* Videolar: liste öğesi ve oynatıcı */
   const vitem = (v, alt) => { const f = video(v.id || v); return `<li><button class="vitem" data-src="${f.dosya}">
-      <img src="${f.kapak}" alt="" loading="lazy"><span><b>${esc(v.ad || "")}</b><small>${esc(alt)}</small></span><span class="play" aria-hidden="true">▶</span></button></li>`; };
+      <img src="${f.kapak}" alt="" loading="lazy"><span><b>${esc(v.ad || "")}</b>${alt ? `<small>${esc(alt)}</small>` : ""}</span><span class="play" aria-hidden="true">▶</span></button></li>`; };
+  /* Ana sayfa: videolar proje proje gruplanır (müşteri isteği, 6 Kasım 2026). */
   const videos = $("#videos");
-  if (videos) videos.innerHTML = VIDEOLAR.map(v => vitem(v, v.alt)).join("");
+  if (videos) {
+    const gruplar = [];
+    VIDEOLAR.forEach(v => {
+      let gr = gruplar.find(x => x.ad === v.ad);
+      if (!gr) gruplar.push(gr = { ad: v.ad, proje: PROJELER.find(p => (p.videolar || []).includes(v.id)), liste: [] });
+      gr.liste.push(v);
+    });
+    videos.innerHTML = gruplar.map(gr => `<section class="vgrup">
+      <div class="vgrup-head"><h3>${esc(gr.ad)}</h3><span>${gr.liste.length} video</span>${gr.proje ? `<a href="proje.html?p=${gr.proje.id}">Projeye git →</a>` : ""}</div>
+      <ol class="vlist">${gr.liste.map(v => vitem({ id: v.id, ad: v.alt }, "")).join("")}</ol></section>`).join("");
+  }
   const lb = $("#lightbox"), lbVideo = $("#lbVideo");
   if (lb) {
     document.addEventListener("click", e => {
